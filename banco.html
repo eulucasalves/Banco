@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LynxBank</title>
+    <link href="/IconBank.ico" rel="shortcut icon" type="image/x-icon">
+
+    <style>
+        /* Estiliza o corpo da página */
+        body {
+             background-image: url("/background.jpg"); /* Define a imagem de fundo */
+             margin: 0; /* Remove margens padrão */
+             background-repeat: no-repeat; /* Evita repetição da imagem de fundo */
+             background-size: cover; /* Define o tamanho da imagem de fundo */
+             padding: 0; /* Remove o padding padrão */
+             overflow-x: hidden; /* Remove a rolagem horizontal */
+             display: flex; /* Usa o layout flexível */
+             flex-direction: column; /* Alinha os itens em coluna */
+             align-items: center; /* Centraliza os itens horizontalmente */
+             justify-content: center; /* Centraliza os itens verticalmente */
+             height: 100vh; /* Define a altura para 100% da altura da janela de visualização */
+        }
+
+        /* Estiliza o primeiro contêiner */
+        .container, .container2 {
+             display: flex; /* Usa o layout flexível */
+             flex-direction: column; /* Alinha os itens em coluna */
+             align-items: center; /* Centraliza os itens horizontalmente */
+             justify-content: center; /* Centraliza os itens verticalmente */
+             height: 45vh; /* Define a altura para 45% da altura da janela de visualização */
+             background-color: #000000dd; /* Define a cor de fundo com opacidade */
+             text-align: center; /* Centraliza o texto */
+             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Define a fonte */
+             color: #ffffff; /* Define a cor do texto */
+             padding: 40px; /* Adiciona padding interno */
+             border-radius: 3%; /* Define bordas arredondadas */
+             box-shadow: 0 0 30px rgb(255, 255, 255); /* Adiciona uma sombra ao redor */
+             margin: 0 auto; /* Centraliza horizontalmente */
+             width: 355px; /* Define a largura */
+        }
+
+        /* Estiliza o segundo contêiner */
+        .container2 {
+            display: none; /* Oculta o segundo contêiner por padrão */
+        }
+
+        /* Estiliza os campos de entrada de texto e senha */
+        #name, #password, #valor, #NumerConta{
+             font-size: 20px; /* Define o tamanho da fonte */
+             width: 210px !important; /* Define a largura dos campos */
+             background-color: #ffffff00; /* Define a cor de fundo como transparente */
+             color: rgb(7, 80, 0); /* Define a cor do texto */
+        }
+
+        /* Estiliza o botão de envio */
+        #submit, .action-button {
+             font-size: 20px; /* Define o tamanho da fonte */
+             background-color: rgb(7, 80, 0); /* Define a cor de fundo */
+             color: #ffffff; /* Define a cor do texto */
+             padding: 10px 20px; /* Define o padding interno */
+             border: 5px; /* Define a borda do botão */
+             cursor: pointer; /* Muda o cursor para uma mão ao passar sobre o botão */
+             border-radius: 5px; /* Define bordas arredondadas */
+             transition: background-color 0.3s ease; /* Define a transição de cor ao passar o mouse */
+             margin-bottom: 8%;
+        }
+        
+        /* Estiliza o botão de envio quando o mouse passa sobre ele */
+        #submit:hover {
+             background-color: rgb(3, 255, 3); /* Altera a cor de fundo ao passar o mouse */
+        }
+
+        .action-button:hover {
+             background-color: rgb(3, 255, 3); /* Altera a cor de fundo ao passar o mouse */
+        }
+
+        /* Estiliza o contêiner da senha */
+        .password-container {
+            position: relative; /* Define a posição relativa para o contêiner */
+            display: flex; /* Usa o layout flexível */
+            align-items: center; /* Alinha os itens verticalmente */
+            margin-bottom: 5%; /* Adiciona margem inferior */
+        }
+
+        /* Estiliza o botão para alternar a visibilidade da senha */
+        .toggle-password {
+            position: absolute; /* Define a posição absoluta */
+            right: 2px; /* Define a distância da borda direita */
+            top: 50%; /* Posiciona verticalmente no meio */
+            transform: translateY(-50%); /* Ajusta a posição vertical */
+            background: none; /* Remove o fundo */
+            border: none; /* Remove a borda */
+            cursor: pointer; /* Muda o cursor para uma mão ao passar sobre o botão */
+            color: #ffffff; /* Define a cor do texto */
+            font-size: 20px; /* Define o tamanho da fonte */
+        }
+
+        /* Estiliza a mensagem de erro */
+        .error-message {
+            color: rgb(117, 0, 0); /* Define a cor do texto */
+            margin-top: 10px; /* Adiciona margem superior */
+            display: none; /* Oculta a mensagem de erro por padrão */
+            z-index: 1; /* Define a ordem de empilhamento */
+            font-size: 25px; /* Define o tamanho da fonte */
+        }
+
+        #sair {
+            background-color: darkred;
+        }
+
+        #sair:hover {
+            background-color: rgb(255, 0, 0);
+        }
+
+    </style>
+
+    <script type="text/javascript" src="banco.js" defer></script>
+
+</head>
+<body>
+    
+    <!-- Criando um contêiner -->
+     <div class="container">
+         <!-- Adicionando um cabeçalho -->
+         <header>
+             <h1>Bem-vindo ao TechBank!</h1>
+         </header>
+         <!-- Adicionando uma seção principal -->
+         <main>
+             <!-- Criando um formulário -->
+             <form id="loginForm">
+                 <!-- Adicionando campos de entrada -->
+                 <input type="text" id="name" name="name" placeholder="Usuário" required>
+                 <br><br>
+                 <!-- Adicionando campo de senha com botão de alternância -->
+                 <div class="password-container">
+                    <input type="password" id="password" name="password" placeholder="Senha" required>
+                    <button type="button" class="toggle-password" onclick="visualizarSenha()">👁️</button>
+                    <br><br>
+                 </div>
+                 <!-- Adicionando botão de envio -->
+                 <input id="submit" type="submit" value="Enviar">
+                 <!-- Adicionando uma mensagem de erro -->
+                  <div id="error-message" class="error-message"></div>
+             </form>
+         </main>
+         <!-- Adicionando um rodapé -->
+         <footer>
+             <p>Recife &REG;
+                <script>document.write(new Date().getFullYear());</script>, TechBank</p>
+         </footer>
+     </div>
+
+
+     <!-- Criando um segundo contêiner -->
+     <div class="container2">
+         <!-- Adicionando um cabeçalho -->
+         <header>
+             <h1 id="welcome-message"></h1>
+         </header>
+         <!-- Adicionando uma seção principal -->
+         <main>
+             <!-- Lista de botões -->
+             <div class="action-container">
+                <button id="checkSaldo" class="action-button">Saldo</button>
+                <button id="verExtrato" class="action-button">Extrato</button>
+                <button id="saque" class="action-button">Saque</button>
+                <button id="deposito" class="action-button">Depósito</button>
+                <button id="transfer" class="action-button">Transferência</button>
+                <button id="sair" class="action-button">Sair</button>
+            </div>
+         </main>
+         <!-- Adicionando um rodapé -->
+         <footer>
+             <p>Recife &REG;
+                <script>document.write(new Date().getFullYear());</script>, TechBack</p>
+         </footer>
+     </div>
+
+</body>
+</html>
